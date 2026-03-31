@@ -22,6 +22,12 @@ jobs:
           registry-url: https://registry.npmjs.org
           cache: npm
 
+      - name: Ensure npm token exists
+        if: ${{ secrets.NPM_TOKEN == '' }}
+        run: |
+          echo "NPM_TOKEN secret is missing."
+          exit 1
+
       - name: Install Dependencies
         run: npm ci
 
