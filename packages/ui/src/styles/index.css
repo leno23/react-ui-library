@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --nova-radius-sm: 0.5rem;
+  --nova-radius-md: 0.75rem;
+  --nova-radius-lg: 1rem;
+  --nova-color-brand: #2459ff;
+  --nova-color-text: #0f172a;
+  --nova-color-muted: #64748b;
+  --nova-color-border: #dbe4ff;
+  --nova-color-bg: #f8fbff;
+  --nova-color-elevated: #ffffff;
+}
+
+.dark,
+[data-theme='dark'] {
+  --nova-color-brand: #7ca0ff;
+  --nova-color-text: #f1f5f9;
+  --nova-color-muted: #cbd5e1;
+  --nova-color-border: #334155;
+  --nova-color-bg: #0b1222;
+  --nova-color-elevated: #111a30;
+}
+
+.nova-focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2;
+}
+
+.nova-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.nova-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #94a3b8;
+  border-radius: 999px;
+}

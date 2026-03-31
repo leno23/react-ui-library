@@ -1,0 +1,45 @@
+:root {
+  --vp-font-family-base: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --vp-c-brand-1: #2459ff;
+  --vp-c-brand-2: #1d48d6;
+  --vp-c-brand-3: #1a3cae;
+}
+
+.playground-note {
+  border: 1px solid #dbe4ff;
+  background: #f2f6ff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 12px 0;
+}
+
+.live-wrap {
+  margin: 12px 0 18px;
+  border: 1px solid #dbe4ff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.live-pane {
+  padding: 12px;
+}
+
+.live-preview {
+  border-bottom: 1px solid #dbe4ff;
+  background: #fff;
+}
+
+.live-editor {
+  background: #0f172a;
+}
+
+.live-editor pre {
+  margin: 0;
+}
+
+.live-error {
+  margin: 0;
+  padding: 8px 10px;
+  background: #7f1d1d;
+  color: #fff;
+}
