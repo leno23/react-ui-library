@@ -1,0 +1,55 @@
+# @wuyangfan/nova-ui Monorepo
+
+企业级 React 组件库工程，包含：
+
+1. `packages/ui`：可发布的组件库包 `@wuyangfan/nova-ui`
+2. `docs`：基于 VitePress 的文档站与在线示例
+
+## 技术栈
+
+- React 18 + TypeScript
+- Tailwind CSS v3
+- ESLint + Prettier
+- tsup（ESM/CJS + d.ts）
+- VitePress 文档
+
+## 本地开发
+
+```bash
+npm install
+npm run dev:docs
+```
+
+## 构建
+
+```bash
+npm run build:ui
+npm run build:docs
+npm run build
+```
+
+## 发布 npm
+
+当前仓库已配置 GitHub Actions 自动发布流程：
+
+- 触发条件：push 到 `main`
+- 流程：安装依赖 -> 构建 UI 包 -> 若版本未发布则自动 `npm publish`
+
+你需要在 GitHub 仓库 Secrets 中配置：
+
+- `NPM_TOKEN`：具有发布 `@wuyangfan/nova-ui` 权限的 npm token（建议 granular token，支持 bypass 2FA）
+
+## 包使用方式
+
+```tsx
+import '@wuyangfan/nova-ui/styles.css'
+import { Button, ThemeProvider } from '@wuyangfan/nova-ui'
+
+export function App() {
+  return (
+    <ThemeProvider mode="light">
+      <Button>Hello Nova UI</Button>
+    </ThemeProvider>
+  )
+}
+```

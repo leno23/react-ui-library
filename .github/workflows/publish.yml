@@ -1,0 +1,55 @@
+name: Build And Publish Nova UI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build UI Package
+        run: npm run build:ui
+
+      - name: Read Package Info
+        id: pkg
+        shell: bash
+        run: |
+          PKG_NAME=$(node -p "require('./packages/ui/package.json').name")
+          PKG_VERSION=$(node -p "require('./packages/ui/package.json').version")
+          echo "name=$PKG_NAME" >> "$GITHUB_OUTPUT"
+          echo "version=$PKG_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Check Version Exists
+        id: check
+        shell: bash
+        run: |
+          if npm view "${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}" version > /dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Version already exists, skip publish."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish Package
+        if: steps.check.outputs.exists == 'false'
+        run: npm publish --access public --workspace @wuyangfan/nova-ui
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
