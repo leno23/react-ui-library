@@ -2,6 +2,7 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
+  base: '/react-ui-library/',
   title: 'Nova UI',
   description: 'Enterprise React component library with TypeScript and Tailwind CSS',
   lang: 'zh-CN',

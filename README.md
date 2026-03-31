@@ -39,6 +39,14 @@ npm run build
 
 - `NPM_TOKEN`：具有发布 `@wuyangfan/nova-ui` 权限的 npm token（建议 granular token，支持 bypass 2FA）
 
+## 发布文档到 GitHub Pages
+
+仓库已包含自动部署工作流 [`.github/workflows/docs-deploy.yml`](file:///Users/zhangbin/Desktop/project/other/react-ui-library/.github/workflows/docs-deploy.yml)。
+
+1. push 到 `main` 后会自动构建并发布 `docs`。
+2. 在 GitHub 仓库设置中打开 `Settings -> Pages -> Source: GitHub Actions`。
+3. 发布地址为：`https://leno23.github.io/react-ui-library/`。
+
 ## 包使用方式
 
 ```tsx
