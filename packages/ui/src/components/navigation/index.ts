@@ -9,3 +9,12 @@ export type { BreadcrumbProps, BreadcrumbItem } from './Breadcrumb'
 
 export { Dropdown } from './Dropdown'
 export type { DropdownProps, DropdownOption } from './Dropdown'
+
+export { Steps } from './Steps'
+export type { StepsProps, StepItem } from './Steps'
+
+export { Collapse } from './Collapse'
+export type { CollapseProps, CollapseItem } from './Collapse'
+
+export { Tree } from './Tree'
+export type { TreeProps, TreeNode } from './Tree'

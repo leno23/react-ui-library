@@ -15,3 +15,6 @@ export type { PopoverProps } from './Popover'
 
 export { Loading } from './Loading'
 export type { LoadingProps } from './Loading'
+
+export { Notification } from './Notification'
+export type { NotificationProps } from './Notification'

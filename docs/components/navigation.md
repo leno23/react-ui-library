@@ -16,6 +16,19 @@
         trigger={<Button variant='outline'>Dropdown</Button>}
         options={[{key:'p',label:'Profile'},{key:'s',label:'Settings'}]}
       />
+      <Steps items={[{ key:'1', title:'Create' }, { key:'2', title:'Review' }, { key:'3', title:'Done' }]} current={1} />
+      <Collapse
+        items={[
+          { key: 'q1', title: 'What is Nova UI?', content: 'A React component library.' },
+          { key: 'q2', title: 'Does it support SSR?', content: 'Yes, supports Next.js SSR.' },
+        ]}
+      />
+      <Tree
+        data={[
+          { key: 'root', title: 'src', children: [{ key: 'cmp', title: 'components' }, { key: 'doc', title: 'docs' }] },
+        ]}
+        defaultExpandedKeys={['root']}
+      />
     </Space>
   )
 }
@@ -29,3 +42,6 @@
 | Menu | `items`, `selectedKey`, `mode`, `onChange` |
 | Breadcrumb | `items`, `separator` |
 | Dropdown | `trigger`, `options`, `open/defaultOpen`, `onOpen/onClose`, `onChange` |
+| Steps | `items`, `current` |
+| Collapse | `items`, `activeKey/defaultActiveKey`, `accordion`, `onChange` |
+| Tree | `data`, `expandedKeys/defaultExpandedKeys`, `onExpand` |

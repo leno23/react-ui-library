@@ -12,6 +12,19 @@
         <Switch defaultChecked />
       </Space>
       <DatePicker />
+      <Form
+        initialValues={{ username: '' }}
+        onSubmit={(values) => alert(JSON.stringify(values))}
+      >
+        <FormItem name='username' label='Username' rules={[{ required: true, message: 'Required' }]}>
+          <Input placeholder='Input username' />
+        </FormItem>
+        <Button type='submit'>Submit Form</Button>
+      </Form>
+      <Upload onChange={(files) => console.log(files)} />
+      <Slider defaultValue={30} />
+      <Rate defaultValue={3} />
+      <Calendar />
     </Space>
   )
 }
@@ -27,3 +40,8 @@
 | Radio | `value`, `name`, `onChange` |
 | Switch | `checked/defaultChecked`, `onChange` |
 | DatePicker | `value/defaultValue`, `onChange` |
+| Form / FormItem | `initialValues`, `rules`, `onSubmit` |
+| Upload | `accept`, `multiple`, `fileList`, `onChange` |
+| Slider | `min/max/step`, `value/defaultValue`, `onChange` |
+| Rate | `count`, `value/defaultValue`, `allowClear`, `onChange` |
+| Calendar | `year/month`, `value`, `onChange` |

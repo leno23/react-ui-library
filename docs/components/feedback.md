@@ -12,6 +12,16 @@
 }
 `" />
 
+<LivePlayground :code="`
+() => {
+  return (
+    <Space direction='vertical' size={10}>
+      <Notification type='success' title='Publish Success' description='Package has been published.' />
+    </Space>
+  )
+}
+`" />
+
 ## API
 
 | 组件 | 关键属性 |
@@ -22,3 +32,4 @@
 | Tooltip | `content`, `disabled` |
 | Popover | `trigger`, `content`, `open/defaultOpen`, `onOpen/onClose` |
 | Loading | `text`, `size` |
+| Notification | `type`, `title`, `description`, `open`, `onClose` |
