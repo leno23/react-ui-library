@@ -15,3 +15,6 @@ export type { SpaceProps } from './Space'
 
 export { Divider } from './Divider'
 export type { DividerProps } from './Divider'
+
+export { SplitPane } from './SplitPane'
+export type { SplitPaneProps } from './SplitPane'

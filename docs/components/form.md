@@ -41,6 +41,9 @@
           { key: 'root', title: 'Root', children: [{ key: 'child', title: 'Child Node' }] },
         ]}
       />
+      <ColorPicker />
+      <Segmented options={[{ label: 'Daily', value: 'd' }, { label: 'Weekly', value: 'w' }]} defaultValue='d' />
+      <Mentions options={[{ value: 'alice' }, { value: 'bob' }]} />
     </Space>
   )
 }
@@ -64,3 +67,6 @@
 | Transfer | `dataSource`, `targetKeys/defaultTargetKeys`, `onChange` |
 | Cascader | `options`, `value/defaultValue`, `onChange` |
 | TreeSelect | `data`, `value/defaultValue`, `onChange` |
+| ColorPicker | `value/defaultValue`, `onChange`, `showValue` |
+| Segmented | `options`, `value/defaultValue`, `onChange` |
+| Mentions | `options`, `value/defaultValue`, `onChange` |

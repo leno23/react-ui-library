@@ -33,3 +33,12 @@ export type { ResultProps } from './Result'
 
 export { Timeline } from './Timeline'
 export type { TimelineProps, TimelineItem } from './Timeline'
+
+export { QRCode } from './QRCode'
+export type { QRCodeProps } from './QRCode'
+
+export { ImagePreview } from './ImagePreview'
+export type { ImagePreviewProps } from './ImagePreview'
+
+export { VirtualList } from './VirtualList'
+export type { VirtualListProps } from './VirtualList'

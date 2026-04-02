@@ -16,6 +16,11 @@
           <div style={{background:'#f1f5f9',padding:'8px'}}>B</div>
           <div style={{background:'#f1f5f9',padding:'8px'}}>C</div>
         </Grid>
+        <SplitPane
+          ratio='1fr 2fr'
+          left={<div style={{background:'#eef2ff',padding:'8px'}}>Left Pane</div>}
+          right={<div style={{background:'#e0f2fe',padding:'8px'}}>Right Pane</div>}
+        />
       </Space>
     </Container>
   )
@@ -32,3 +37,4 @@
 | Grid | `cols`, `gap` |
 | Space | `direction`, `size`, `wrap` |
 | Divider | `orientation` |
+| SplitPane | `left`, `right`, `ratio` |

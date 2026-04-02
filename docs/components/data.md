@@ -26,6 +26,12 @@
       <Timeline items={[{ key: '1', title: 'Created' }, { key: '2', title: 'Published', color: 'success' }]} />
       <Result status='success' title='Operation Done' subTitle='Everything looks good.' />
       <Empty description='No Records' />
+      <QRCode value='https://leno23.github.io/react-ui-library/' />
+      <ImagePreview src='https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600' />
+      <VirtualList
+        items={Array.from({ length: 120 }, (_, i) => 'Item ' + (i + 1))}
+        renderItem={(item) => item}
+      />
     </Space>
   )
 }
@@ -47,3 +53,6 @@
 | Timeline | `items` |
 | Result | `status`, `title`, `subTitle`, `extra` |
 | Empty | `description`, `image` |
+| QRCode | `value`, `size` |
+| ImagePreview | `src`, `alt`, `width`, `height` |
+| VirtualList | `items`, `itemHeight`, `height`, `renderItem` |

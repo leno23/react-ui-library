@@ -39,3 +39,12 @@ export type { CascaderProps, CascaderOption } from './Cascader'
 
 export { TreeSelect } from './TreeSelect'
 export type { TreeSelectProps } from './TreeSelect'
+
+export { ColorPicker } from './ColorPicker'
+export type { ColorPickerProps } from './ColorPicker'
+
+export { Segmented } from './Segmented'
+export type { SegmentedProps, SegmentedOption } from './Segmented'
+
+export { Mentions } from './Mentions'
+export type { MentionsProps, MentionsOption } from './Mentions'
