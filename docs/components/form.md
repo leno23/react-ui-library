@@ -25,6 +25,22 @@
       <Slider defaultValue={30} />
       <Rate defaultValue={3} />
       <Calendar />
+      <Transfer
+        dataSource={[
+          { key: '1', title: 'Option A' },
+          { key: '2', title: 'Option B' },
+        ]}
+      />
+      <Cascader
+        options={[
+          { value: 'zj', label: 'Zhejiang', children: [{ value: 'hz', label: 'Hangzhou' }] },
+        ]}
+      />
+      <TreeSelect
+        data={[
+          { key: 'root', title: 'Root', children: [{ key: 'child', title: 'Child Node' }] },
+        ]}
+      />
     </Space>
   )
 }
@@ -45,3 +61,6 @@
 | Slider | `min/max/step`, `value/defaultValue`, `onChange` |
 | Rate | `count`, `value/defaultValue`, `allowClear`, `onChange` |
 | Calendar | `year/month`, `value`, `onChange` |
+| Transfer | `dataSource`, `targetKeys/defaultTargetKeys`, `onChange` |
+| Cascader | `options`, `value/defaultValue`, `onChange` |
+| TreeSelect | `data`, `value/defaultValue`, `onChange` |

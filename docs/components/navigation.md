@@ -29,6 +29,11 @@
         ]}
         defaultExpandedKeys={['root']}
       />
+      <Anchor items={[{ key: 'a1', href: '#section-a', title: 'Section A' }, { key: 'a2', href: '#section-b', title: 'Section B' }]} />
+      <Affix offsetTop={8}>
+        <Button size='sm'>Sticky Action</Button>
+      </Affix>
+      <BackTop />
     </Space>
   )
 }
@@ -45,3 +50,6 @@
 | Steps | `items`, `current` |
 | Collapse | `items`, `activeKey/defaultActiveKey`, `accordion`, `onChange` |
 | Tree | `data`, `expandedKeys/defaultExpandedKeys`, `onExpand` |
+| Anchor | `items` |
+| Affix | `offsetTop`, `children` |
+| BackTop | `visibilityHeight` |

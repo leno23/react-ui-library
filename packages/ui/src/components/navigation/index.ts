@@ -18,3 +18,12 @@ export type { CollapseProps, CollapseItem } from './Collapse'
 
 export { Tree } from './Tree'
 export type { TreeProps, TreeNode } from './Tree'
+
+export { Anchor } from './Anchor'
+export type { AnchorProps, AnchorItem } from './Anchor'
+
+export { Affix } from './Affix'
+export type { AffixProps } from './Affix'
+
+export { BackTop } from './BackTop'
+export type { BackTopProps } from './BackTop'

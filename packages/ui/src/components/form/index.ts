@@ -30,3 +30,12 @@ export type { RateProps } from './Rate'
 
 export { Calendar } from './Calendar'
 export type { CalendarProps } from './Calendar'
+
+export { Transfer } from './Transfer'
+export type { TransferProps, TransferItem } from './Transfer'
+
+export { Cascader } from './Cascader'
+export type { CascaderProps, CascaderOption } from './Cascader'
+
+export { TreeSelect } from './TreeSelect'
+export type { TreeSelectProps } from './TreeSelect'

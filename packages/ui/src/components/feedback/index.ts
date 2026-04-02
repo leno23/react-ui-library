@@ -18,3 +18,9 @@ export type { LoadingProps } from './Loading'
 
 export { Notification } from './Notification'
 export type { NotificationProps } from './Notification'
+
+export { Tour } from './Tour'
+export type { TourProps, TourStep } from './Tour'
+
+export { Watermark } from './Watermark'
+export type { WatermarkProps } from './Watermark'
