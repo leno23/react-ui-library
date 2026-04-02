@@ -6,8 +6,22 @@
     <Space direction='vertical' size={12}>
       <Card title='Card Title'>Card content</Card>
       <Table
-        columns={[{key:'name',title:'Name'},{key:'role',title:'Role'}]}
+        columns={[
+          {
+            key: 'name',
+            title: 'Name',
+            sorter: (a, b) => String(a.name).localeCompare(String(b.name)),
+          },
+          {
+            key: 'role',
+            title: 'Role',
+            filters: [{ text: 'Admin', value: 'Admin' }, { text: 'Editor', value: 'Editor' }],
+          },
+        ]}
         dataSource={[{name:'Alice',role:'Admin'},{name:'Bob',role:'Editor'}]}
+        title='User Table'
+        searchable
+        columnConfigurable
       />
       <Space>
         <Tag color='success'>Online</Tag>
@@ -41,7 +55,7 @@
 
 | 组件 | 关键属性 |
 | --- | --- |
-| Table | `columns`, `dataSource`, `rowKey`, `emptyText` |
+| Table | `columns(sorter/filters/width/render)`, `dataSource`, `rowKey`, `emptyText`, `title`, `searchable`, `columnConfigurable` |
 | Pagination | `current/defaultCurrent`, `total`, `pageSize`, `onChange` |
 | Card | `title`, `extra` |
 | Tag | `color` |

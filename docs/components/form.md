@@ -13,11 +13,32 @@
       </Space>
       <DatePicker />
       <Form
-        initialValues={{ username: '' }}
+        initialValues={{ username: '', password: '', confirm: '' }}
         onSubmit={(values) => alert(JSON.stringify(values))}
       >
         <FormItem name='username' label='Username' rules={[{ required: true, message: 'Required' }]}>
           <Input placeholder='Input username' />
+        </FormItem>
+        <FormItem
+          name='password'
+          label='Password'
+          rules={[
+            { required: true, message: 'Password required' },
+            { minLength: 6, message: 'At least 6 chars' },
+          ]}
+        >
+          <Input type='password' placeholder='Input password' />
+        </FormItem>
+        <FormItem
+          name='confirm'
+          label='Confirm'
+          dependencies={['password']}
+          rules={[
+            { required: true, message: 'Confirm required' },
+            { validator: (v, values) => (v === values.password ? null : 'Password mismatch') },
+          ]}
+        >
+          <Input type='password' placeholder='Confirm password' />
         </FormItem>
         <Button type='submit'>Submit Form</Button>
       </Form>
@@ -59,7 +80,7 @@
 | Radio | `value`, `name`, `onChange` |
 | Switch | `checked/defaultChecked`, `onChange` |
 | DatePicker | `value/defaultValue`, `onChange` |
-| Form / FormItem | `initialValues`, `rules`, `onSubmit` |
+| Form / FormItem | `initialValues`, `rules(minLength/maxLength/pattern/when/validator)`, `dependencies`, `onSubmit` |
 | Upload | `accept`, `multiple`, `fileList`, `onChange` |
 | Slider | `min/max/step`, `value/defaultValue`, `onChange` |
 | Rate | `count`, `value/defaultValue`, `allowClear`, `onChange` |

@@ -18,6 +18,11 @@ export type FormValues = Record<string, unknown>
 
 export interface FormRule {
   required?: boolean
+  minLength?: number
+  maxLength?: number
+  pattern?: RegExp
+  when?: (values: FormValues) => boolean
+  deps?: string[]
   message?: string
   validator?: (value: unknown, values: FormValues) => string | null
 }
@@ -40,6 +45,7 @@ export interface FormItemProps {
   name: string
   label?: ReactNode
   rules?: FormRule[]
+  dependencies?: string[]
   children: ReactNode
   requiredMark?: boolean
 }
@@ -74,6 +80,21 @@ export const Form = forwardRef<HTMLFormElement, FormProps>(function Form(
         if (nextErrors[name]) return
         if (rule.required && (value === undefined || value === null || value === '')) {
           nextErrors[name] = rule.message ?? `${name} is required`
+          return
+        }
+        if (rule.when && !rule.when(values)) {
+          return
+        }
+        if (typeof value === 'string' && rule.minLength !== undefined && value.length < rule.minLength) {
+          nextErrors[name] = rule.message ?? `${name} length must be >= ${rule.minLength}`
+          return
+        }
+        if (typeof value === 'string' && rule.maxLength !== undefined && value.length > rule.maxLength) {
+          nextErrors[name] = rule.message ?? `${name} length must be <= ${rule.maxLength}`
+          return
+        }
+        if (typeof value === 'string' && rule.pattern && !rule.pattern.test(value)) {
+          nextErrors[name] = rule.message ?? `${name} format is invalid`
           return
         }
         if (rule.validator) {
@@ -122,6 +143,7 @@ export function FormItem({
   name,
   label,
   rules = [],
+  dependencies = [],
   children,
   requiredMark = true,
 }: FormItemProps) {
@@ -132,6 +154,10 @@ export function FormItem({
   }
 
   ctx.setFieldRules(name, rules)
+
+  dependencies.forEach((dep) => {
+    void ctx.values[dep]
+  })
 
   const value = ctx.values[name]
   const error = ctx.errors[name]
