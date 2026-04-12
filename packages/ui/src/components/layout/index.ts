@@ -21,3 +21,9 @@ export type { SplitPaneProps } from './SplitPane'
 
 export { Flex } from './Flex'
 export type { FlexProps } from './Flex'
+
+export { Layout, LayoutHeader, LayoutSider, LayoutContent, LayoutFooter, useLayout } from './Layout'
+export type { LayoutProps, LayoutHeaderProps, LayoutSiderProps, LayoutContentProps, LayoutFooterProps } from './Layout'
+
+export { Splitter } from './Splitter'
+export type { SplitterProps, SplitterPanel } from './Splitter'

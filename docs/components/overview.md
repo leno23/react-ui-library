@@ -4,15 +4,15 @@ Nova UI 当前包含以下组件，已对齐 Ant Design 中后台常用能力：
 
 ## 布局 Layout
 
-Container、Row、Col、Grid、Flex、Space、Divider、SplitPane
+Container、Row、Col、Grid、Flex、Space、Divider、SplitPane、Layout（Header / Sider / Content / Footer）、Splitter
 
 ## 基础 Basic
 
-Button、Icon、Typography（Title / Text / Paragraph）
+Button、Icon、Typography（Title / Text / Paragraph）、ConfigProvider、Link
 
 ## 表单 Form
 
-Input、InputNumber、AutoComplete、Select、Checkbox、Radio、Switch、DatePicker、TimePicker、Slider、Rate、Upload、Form / FormItem、Calendar、Transfer、Cascader、TreeSelect、ColorPicker、Segmented、Mentions
+Input、InputNumber、AutoComplete、Select、Checkbox、Radio、Switch、DatePicker、TimePicker、Slider、Rate、Upload、Form / FormItem、Calendar、Transfer、Cascader、TreeSelect、ColorPicker、Segmented、Mentions、Textarea、InputOTP
 
 ## 反馈 Feedback
 
@@ -20,7 +20,7 @@ Alert、Modal、Drawer、Toast / Message、Tooltip、Popover、Popconfirm、Load
 
 ## 数据展示 Data Display
 
-Table、List、Card、Carousel、Tag、Badge、Avatar、Image、Pagination、Progress、Statistic、Descriptions、Empty、Result、Timeline、QRCode、ImagePreview、VirtualList
+Table、List、Card、Carousel、Tag、Badge、Avatar、AvatarGroup、Image、Pagination、Progress、Statistic、CountDown、Descriptions、Empty、Result、Timeline、QRCode、ImagePreview、VirtualList
 
 ## 导航 Navigation
 

@@ -37,6 +37,8 @@ export default defineConfig({
             { text: 'Space 间距', link: '/components/space' },
             { text: 'Divider 分割线', link: '/components/divider' },
             { text: 'SplitPane 分栏', link: '/components/split-pane' },
+            { text: 'Layout 布局', link: '/components/layout-component' },
+            { text: 'Splitter 可调分栏', link: '/components/splitter' },
           ],
         },
         {
@@ -46,6 +48,8 @@ export default defineConfig({
             { text: 'Button 按钮', link: '/components/button' },
             { text: 'Icon 图标', link: '/components/icon' },
             { text: 'Typography 排版', link: '/components/typography' },
+            { text: 'ConfigProvider 全局配置', link: '/components/config-provider' },
+            { text: 'Link 链接', link: '/components/link' },
           ],
         },
         {
@@ -72,6 +76,8 @@ export default defineConfig({
             { text: 'ColorPicker 颜色选择', link: '/components/color-picker' },
             { text: 'Segmented 分段控制器', link: '/components/segmented' },
             { text: 'Mentions 提及', link: '/components/mentions' },
+            { text: 'Textarea 文本域', link: '/components/textarea' },
+            { text: 'InputOTP 验证码输入', link: '/components/input-otp' },
           ],
         },
         {
@@ -115,6 +121,8 @@ export default defineConfig({
             { text: 'QRCode 二维码', link: '/components/qrcode' },
             { text: 'ImagePreview 图片预览', link: '/components/image-preview' },
             { text: 'VirtualList 虚拟列表', link: '/components/virtual-list' },
+            { text: 'AvatarGroup 头像组', link: '/components/avatar-group' },
+            { text: 'CountDown 倒计时', link: '/components/countdown' },
           ],
         },
         {

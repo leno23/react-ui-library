@@ -57,3 +57,9 @@ export type { InputNumberProps } from './InputNumber'
 
 export { TimePicker } from './TimePicker'
 export type { TimePickerProps } from './TimePicker'
+
+export { Textarea } from './Textarea'
+export type { TextareaProps } from './Textarea'
+
+export { InputOTP } from './InputOTP'
+export type { InputOTPProps } from './InputOTP'

@@ -51,3 +51,9 @@ export type { CarouselProps } from './Carousel'
 
 export { Image } from './Image'
 export type { ImageProps } from './Image'
+
+export { AvatarGroup } from './AvatarGroup'
+export type { AvatarGroupProps } from './AvatarGroup'
+
+export { CountDown } from './CountDown'
+export type { CountDownProps } from './CountDown'
