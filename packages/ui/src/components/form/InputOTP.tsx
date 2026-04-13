@@ -15,21 +15,24 @@ export const InputOTP = forwardRef<HTMLDivElement, InputOTPProps>(function Input
   ref,
 ) {
   const [internal, setInternal] = useState('')
-  const val = controlledValue ?? internal
+  const isControlled = controlledValue !== undefined
+  const val = isControlled ? controlledValue : internal
   const inputsRef = useRef<(HTMLInputElement | null)[]>([])
 
   const sizeCls = { 'h-8 w-8 text-sm': size === 'sm', 'h-10 w-10 text-base': size === 'md', 'h-12 w-12 text-lg': size === 'lg' }
 
   const update = (newVal: string) => {
-    setInternal(newVal)
+    if (!isControlled) setInternal(newVal)
     onChange?.(newVal)
   }
 
+  const charsToString = (cells: string[]) => cells.join('')
+
   const handleInput = (index: number, char: string) => {
     if (!/^\d?$/.test(char)) return
-    const arr = val.split('')
-    arr[index] = char
-    const next = arr.join('').slice(0, length)
+    const cells = Array.from({ length }, (_, i) => val[i] ?? '')
+    cells[index] = char
+    const next = charsToString(cells).slice(0, length)
     update(next)
     if (char && index < length - 1) {
       inputsRef.current[index + 1]?.focus()
@@ -39,9 +42,9 @@ export const InputOTP = forwardRef<HTMLDivElement, InputOTPProps>(function Input
   const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
     if (e.key === 'Backspace' && !val[index] && index > 0) {
       inputsRef.current[index - 1]?.focus()
-      const arr = val.split('')
-      arr[index - 1] = ''
-      update(arr.join(''))
+      const cells = Array.from({ length }, (_, i) => val[i] ?? '')
+      cells[index - 1] = ''
+      update(charsToString(cells))
     }
     if (e.key === 'ArrowLeft' && index > 0) inputsRef.current[index - 1]?.focus()
     if (e.key === 'ArrowRight' && index < length - 1) inputsRef.current[index + 1]?.focus()
@@ -51,8 +54,8 @@ export const InputOTP = forwardRef<HTMLDivElement, InputOTPProps>(function Input
     e.preventDefault()
     const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, length)
     update(pasted)
-    const focusIdx = Math.min(pasted.length, length - 1)
-    inputsRef.current[focusIdx]?.focus()
+    const focusIdx = pasted.length >= length ? length - 1 : pasted.length
+    requestAnimationFrame(() => inputsRef.current[focusIdx]?.focus())
   }
 
   return (

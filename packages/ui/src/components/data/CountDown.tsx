@@ -1,4 +1,4 @@
-import { forwardRef, useState, useEffect, type HTMLAttributes } from 'react'
+import { forwardRef, useState, useEffect, useRef, type HTMLAttributes } from 'react'
 import { cn } from '../../utils/cn'
 
 export interface CountDownProps extends HTMLAttributes<HTMLDivElement> {
@@ -31,17 +31,30 @@ export const CountDown = forwardRef<HTMLDivElement, CountDownProps>(function Cou
   ref,
 ) {
   const [remaining, setRemaining] = useState(() => Math.max(0, value - Date.now()))
+  const finishedRef = useRef(false)
+  const onFinishRef = useRef(onFinish)
+
+  useEffect(() => {
+    onFinishRef.current = onFinish
+  }, [onFinish])
+
+  useEffect(() => {
+    finishedRef.current = false
+  }, [value])
 
   useEffect(() => {
     const update = () => {
       const r = Math.max(0, value - Date.now())
       setRemaining(r)
-      if (r <= 0) onFinish?.()
+      if (r <= 0 && !finishedRef.current) {
+        finishedRef.current = true
+        onFinishRef.current?.()
+      }
     }
     update()
     const timer = setInterval(update, 1000)
     return () => clearInterval(timer)
-  }, [value, onFinish])
+  }, [value])
 
   return (
     <div ref={ref} className={cn('inline-block', className)} {...props}>

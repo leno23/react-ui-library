@@ -42,7 +42,7 @@ export const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(function T
     }
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
-  })
+  }, [open])
 
   const hours = Array.from({ length: format === '24' ? 24 : 12 }, (_, i) => format === '24' ? i : i + 1)
   const minutes = Array.from({ length: 60 }, (_, i) => i)

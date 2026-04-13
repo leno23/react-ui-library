@@ -54,7 +54,7 @@ export const AutoComplete = forwardRef<HTMLInputElement, AutoCompleteProps>(func
     }
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
-  })
+  }, [open])
 
   return (
     <div ref={wrapperRef} className={cn('relative inline-block w-full', className)}>

@@ -1,4 +1,4 @@
-import { forwardRef, useState, type ImgHTMLAttributes, type ReactNode } from 'react'
+import { forwardRef, useState, useEffect, type ImgHTMLAttributes, type ReactNode } from 'react'
 import { cn } from '../../utils/cn'
 
 export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
@@ -23,6 +23,12 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
   const [failed, setFailed] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [previewOpen, setPreviewOpen] = useState(false)
+
+  useEffect(() => {
+    setFailed(false)
+    setLoaded(false)
+    setPreviewOpen(false)
+  }, [src])
 
   const imgSrc = failed ? fallback : src
 

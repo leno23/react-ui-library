@@ -1,4 +1,4 @@
-import { forwardRef, useState, useRef, useEffect, type HTMLAttributes, type ReactNode, type ReactElement } from 'react'
+import { forwardRef, useState, useRef, useEffect, useCallback, type HTMLAttributes, type ReactNode, type ReactElement } from 'react'
 import { cn } from '../../utils/cn'
 
 export interface PopconfirmProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -32,13 +32,17 @@ export const Popconfirm = forwardRef<HTMLDivElement, PopconfirmProps>(function P
   ref,
 ) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen)
-  const isOpen = controlledOpen ?? internalOpen
+  const isControlled = controlledOpen !== undefined
+  const isOpen = isControlled ? controlledOpen : internalOpen
   const wrapperRef = useRef<HTMLDivElement>(null)
 
-  const setOpen = (val: boolean) => {
-    setInternalOpen(val)
-    onOpenChange?.(val)
-  }
+  const setOpen = useCallback(
+    (val: boolean) => {
+      if (!isControlled) setInternalOpen(val)
+      onOpenChange?.(val)
+    },
+    [isControlled, onOpenChange],
+  )
 
   useEffect(() => {
     if (!isOpen) return
@@ -49,7 +53,7 @@ export const Popconfirm = forwardRef<HTMLDivElement, PopconfirmProps>(function P
     }
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
-  })
+  }, [isOpen, setOpen])
 
   return (
     <div ref={wrapperRef} className={cn('relative inline-block', className)} {...props}>

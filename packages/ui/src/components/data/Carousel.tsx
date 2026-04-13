@@ -31,9 +31,11 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(function Carou
 
   useEffect(() => {
     if (!autoplay || count <= 1) return
-    const timer = setInterval(() => goTo(current + 1), autoplaySpeed)
+    const timer = setInterval(() => {
+      setCurrent((c) => ((c + 1) % count + count) % count)
+    }, autoplaySpeed)
     return () => clearInterval(timer)
-  }, [autoplay, autoplaySpeed, current, count, goTo])
+  }, [autoplay, autoplaySpeed, count])
 
   return (
     <div ref={ref} className={cn('relative overflow-hidden rounded-lg', className)} {...props}>

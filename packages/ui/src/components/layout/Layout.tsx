@@ -83,12 +83,13 @@ export const LayoutSider = forwardRef<HTMLElement, LayoutSiderProps>(function La
 ) {
   const ctx = useLayout()
   const [internalCollapsed, setInternalCollapsed] = useState(defaultCollapsed)
-  const isCollapsed = controlledCollapsed ?? internalCollapsed
+  const isControlled = controlledCollapsed !== undefined
+  const isCollapsed = isControlled ? controlledCollapsed : internalCollapsed
   const currentWidth = isCollapsed ? collapsedWidth : width
 
   const toggle = () => {
     const next = !isCollapsed
-    setInternalCollapsed(next)
+    if (!isControlled) setInternalCollapsed(next)
     ctx.setSiderCollapsed(next)
     onCollapse?.(next)
   }

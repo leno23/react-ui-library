@@ -1,4 +1,4 @@
-import { forwardRef, useState, useRef, useCallback, type HTMLAttributes, type ReactNode } from 'react'
+import { forwardRef, useState, useRef, useCallback, useEffect, type HTMLAttributes, type ReactNode } from 'react'
 import { cn } from '../../utils/cn'
 
 export interface SplitterPanel {
@@ -23,6 +23,24 @@ export const Splitter = forwardRef<HTMLDivElement, SplitterProps>(function Split
 
   const initSizes = panels.map((p) => p.defaultSize ?? 100 / panels.length)
   const [sizes, setSizes] = useState(initSizes)
+  const sizesRef = useRef(sizes)
+
+  useEffect(() => {
+    sizesRef.current = sizes
+  }, [sizes])
+
+  const panelsRef = useRef(panels)
+  useEffect(() => {
+    panelsRef.current = panels
+  }, [panels])
+
+  useEffect(() => {
+    const p = panelsRef.current
+    setSizes((prev) => {
+      if (prev.length === p.length) return prev
+      return p.map((panel) => panel.defaultSize ?? 100 / p.length)
+    })
+  }, [panels.length])
 
   const handleDrag = useCallback(
     (index: number, e: React.MouseEvent) => {
@@ -35,7 +53,7 @@ export const Splitter = forwardRef<HTMLDivElement, SplitterProps>(function Split
 
       const startPos = isHorizontal ? e.clientX : e.clientY
 
-      const startSizes = [...sizes]
+      const startSizes = [...sizesRef.current]
 
       const onMove = (ev: MouseEvent) => {
         const currentPos = isHorizontal ? ev.clientX : ev.clientY
@@ -66,7 +84,7 @@ export const Splitter = forwardRef<HTMLDivElement, SplitterProps>(function Split
       document.addEventListener('mousemove', onMove)
       document.addEventListener('mouseup', onUp)
     },
-    [sizes, panels, isHorizontal, onResize],
+    [panels, isHorizontal, onResize],
   )
 
   return (
