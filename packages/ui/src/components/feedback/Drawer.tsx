@@ -1,6 +1,7 @@
 import { forwardRef, type HTMLAttributes } from 'react'
 import { Portal } from '../../utils/portal'
 import { cn } from '../../utils/cn'
+import { useEscapeKey } from '../../hooks/useEscapeKey'
 
 export interface DrawerProps extends HTMLAttributes<HTMLDivElement> {
   open?: boolean
@@ -13,6 +14,8 @@ export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(function Drawer(
   { className, open = false, onClose, placement = 'right', title, children, ...props },
   ref,
 ) {
+  useEscapeKey(() => onClose?.(), open)
+
   if (!open) {
     return null
   }

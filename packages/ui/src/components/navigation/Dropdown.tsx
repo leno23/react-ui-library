@@ -1,5 +1,8 @@
-import { forwardRef, type HTMLAttributes, type ReactNode, useState } from 'react'
+import { forwardRef, type HTMLAttributes, type MutableRefObject, type ReactNode, useState, useRef, useCallback } from 'react'
 import { cn } from '../../utils/cn'
+import { setRef } from '../../utils/setRef'
+import { useClickOutside } from '../../hooks/useClickOutside'
+import { useEscapeKey } from '../../hooks/useEscapeKey'
 
 export interface DropdownOption {
   key: string
@@ -32,21 +35,32 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(function Dropd
   ref,
 ) {
   const [innerOpen, setInnerOpen] = useState(defaultOpen)
-  const open = controlledOpen ?? innerOpen
+  const isControlled = controlledOpen !== undefined
+  const open = isControlled ? controlledOpen : innerOpen
+  const rootRef = useRef<HTMLDivElement | null>(null) as MutableRefObject<HTMLDivElement | null>
 
-  const setOpen = (next: boolean) => {
-    if (controlledOpen === undefined) {
-      setInnerOpen(next)
-    }
-    if (next) {
-      onOpen?.()
-    } else {
-      onClose?.()
-    }
-  }
+  const setOpen = useCallback(
+    (next: boolean) => {
+      if (next === open) return
+      if (!isControlled) setInnerOpen(next)
+      if (next) onOpen?.()
+      else onClose?.()
+    },
+    [isControlled, onClose, onOpen, open],
+  )
+
+  useClickOutside(rootRef, () => setOpen(false), open)
+  useEscapeKey(() => setOpen(false), open)
 
   return (
-    <div ref={ref} className={cn('relative inline-flex', className)} {...props}>
+    <div
+      ref={(node) => {
+        rootRef.current = node
+        setRef(ref, node)
+      }}
+      className={cn('relative inline-flex', className)}
+      {...props}
+    >
       <button type="button" onClick={() => setOpen(!open)} className="inline-flex">
         {trigger}
       </button>

@@ -1,4 +1,4 @@
-import { forwardRef, type HTMLAttributes, type ReactNode, useState } from 'react'
+import { forwardRef, type HTMLAttributes, type ReactNode, useState, useEffect } from 'react'
 import { cn } from '../../utils/cn'
 
 export interface TooltipProps extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
@@ -11,6 +11,10 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip
   ref,
 ) {
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (disabled) setOpen(false)
+  }, [disabled])
 
   return (
     <div

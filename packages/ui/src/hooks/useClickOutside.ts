@@ -1,10 +1,15 @@
-import { useEffect, type RefObject } from 'react'
+import { useEffect, useRef, type RefObject } from 'react'
 
 export function useClickOutside<T extends HTMLElement>(
-  ref: RefObject<T>,
+  ref: RefObject<T | null>,
   handler: (event: MouseEvent) => void,
   enabled = true,
 ) {
+  const savedHandler = useRef(handler)
+  useEffect(() => {
+    savedHandler.current = handler
+  }, [handler])
+
   useEffect(() => {
     if (!enabled || typeof document === 'undefined') {
       return
@@ -15,12 +20,12 @@ export function useClickOutside<T extends HTMLElement>(
       if (!target || !ref.current || ref.current.contains(target)) {
         return
       }
-      handler(event)
+      savedHandler.current(event)
     }
 
     document.addEventListener('mousedown', listener)
     return () => {
       document.removeEventListener('mousedown', listener)
     }
-  }, [enabled, handler, ref])
+  }, [enabled, ref])
 }

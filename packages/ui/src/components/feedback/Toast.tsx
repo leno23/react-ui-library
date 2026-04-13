@@ -1,4 +1,4 @@
-import { forwardRef, type HTMLAttributes, useEffect } from 'react'
+import { forwardRef, type HTMLAttributes, useEffect, useRef } from 'react'
 import { cn } from '../../utils/cn'
 
 export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
@@ -12,15 +12,20 @@ export const Toast = forwardRef<HTMLDivElement, ToastProps>(function Toast(
   { className, open = false, duration = 2500, onClose, status = 'info', children, ...props },
   ref,
 ) {
+  const onCloseRef = useRef(onClose)
+  useEffect(() => {
+    onCloseRef.current = onClose
+  }, [onClose])
+
   useEffect(() => {
     if (!open) {
       return
     }
-    const timer = window.setTimeout(() => onClose?.(), duration)
+    const timer = window.setTimeout(() => onCloseRef.current?.(), duration)
     return () => {
       window.clearTimeout(timer)
     }
-  }, [duration, onClose, open])
+  }, [duration, open])
 
   if (!open) {
     return null
