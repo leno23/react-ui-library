@@ -180,10 +180,15 @@ export function FormItem({
   const value = ctx.values[name]
   const error = ctx.errors[name]
   const required = rules.some((rule) => rule.required)
+  const fieldId = `field-${name}`
+  const errorId = `${fieldId}-error`
 
   const childNode = isValidElement(children)
     ? (children as ReactElement<{
+        id?: string
         value?: unknown
+        'aria-invalid'?: boolean
+        'aria-describedby'?: string
         onChange?: (eventOrValue: unknown) => void
       }>)
     : null
@@ -191,14 +196,17 @@ export function FormItem({
   return (
     <div className="space-y-1.5">
       {label ? (
-        <label className="text-sm font-medium text-slate-700 dark:text-slate-200">
+        <label htmlFor={fieldId} className="text-sm font-medium text-slate-700 dark:text-slate-200">
           {label}
           {required && requiredMark ? <span className="ml-0.5 text-red-500">*</span> : null}
         </label>
       ) : null}
       {childNode
         ? (cloneElement(childNode, {
+            id: fieldId,
             value: value as never,
+            'aria-invalid': Boolean(error),
+            'aria-describedby': error ? errorId : undefined,
             onChange: (eventOrValue: unknown) => {
               const nextValue = extractFieldValue(eventOrValue)
               ctx.setFieldValue(name, nextValue)
@@ -208,7 +216,7 @@ export function FormItem({
             },
           }) as ReactElement)
         : children}
-      {error ? <p className="text-xs text-red-600">{error}</p> : null}
+      {error ? <p id={errorId} className="text-xs text-red-600">{error}</p> : null}
     </div>
   )
 }

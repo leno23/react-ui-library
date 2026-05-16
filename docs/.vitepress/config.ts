@@ -24,6 +24,7 @@ export default defineConfig({
           items: [
             { text: '项目介绍', link: '/guide/introduction' },
             { text: '快速开始', link: '/guide/getting-started' },
+            { text: '可访问性', link: '/guide/accessibility' },
             { text: '文档优化 TODO', link: '/guide/docs-optimization-todo' },
           ],
         },

@@ -1,4 +1,4 @@
-import { forwardRef, type HTMLAttributes, useRef } from 'react'
+import { forwardRef, type HTMLAttributes, useEffect, useId, useRef } from 'react'
 import { Portal } from '../../utils/portal'
 import { cn } from '../../utils/cn'
 import { useEscapeKey } from '../../hooks/useEscapeKey'
@@ -15,8 +15,22 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
   _ref,
 ) {
   const panelRef = useRef<HTMLDivElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const titleId = useId()
+  const lastActiveElementRef = useRef<HTMLElement | null>(null)
   useEscapeKey(() => onClose?.(), open)
   useClickOutside(panelRef, () => onClose?.(), open)
+
+  useEffect(() => {
+    if (!open) return
+
+    lastActiveElementRef.current = document.activeElement as HTMLElement | null
+    closeButtonRef.current?.focus()
+
+    return () => {
+      lastActiveElementRef.current?.focus()
+    }
+  }, [open])
 
   if (!open) {
     return null
@@ -29,13 +43,13 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(function Modal(
           ref={panelRef}
           role="dialog"
           aria-modal="true"
-          aria-label={title}
+          aria-labelledby={title ? titleId : undefined}
           className={cn('w-full max-w-lg rounded-xl bg-white p-6 shadow-2xl dark:bg-slate-900', className)}
           {...props}
         >
           <div className="mb-3 flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
-            <button onClick={onClose} className="rounded p-1 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Close modal">
+            <h3 id={titleId} className="text-lg font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
+            <button ref={closeButtonRef} onClick={onClose} className="rounded p-1 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Close modal">
               ✕
             </button>
           </div>

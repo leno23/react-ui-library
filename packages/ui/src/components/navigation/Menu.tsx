@@ -1,4 +1,4 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from 'react'
+import { forwardRef, type HTMLAttributes, type KeyboardEvent, type ReactNode, useMemo, useState } from 'react'
 import { cn } from '../../utils/cn'
 
 export interface MenuItem {
@@ -18,10 +18,31 @@ export const Menu = forwardRef<HTMLUListElement, MenuProps>(function Menu(
   { className, items, selectedKey, onChange, mode = 'vertical', ...props },
   ref,
 ) {
+  const enabledItems = useMemo(() => items.filter((item) => !item.disabled), [items])
+  const [activeKey, setActiveKey] = useState<string | undefined>(selectedKey ?? enabledItems[0]?.key)
+
+  const onKeyDown = (event: KeyboardEvent<HTMLUListElement>) => {
+    if (!enabledItems.length) return
+    const currentIndex = enabledItems.findIndex((item) => item.key === activeKey)
+    if (event.key === 'ArrowDown' || (mode === 'horizontal' && event.key === 'ArrowRight')) {
+      event.preventDefault()
+      const next = enabledItems[(currentIndex + 1) % enabledItems.length]
+      setActiveKey(next?.key)
+      onChange?.(next.key)
+    }
+    if (event.key === 'ArrowUp' || (mode === 'horizontal' && event.key === 'ArrowLeft')) {
+      event.preventDefault()
+      const prev = enabledItems[(currentIndex - 1 + enabledItems.length) % enabledItems.length]
+      setActiveKey(prev?.key)
+      onChange?.(prev.key)
+    }
+  }
+
   return (
     <ul
       ref={ref}
       role="menu"
+      onKeyDown={onKeyDown}
       className={cn('list-none p-0', mode === 'horizontal' ? 'flex items-center gap-2' : 'flex flex-col gap-1', className)}
       {...props}
     >
@@ -30,6 +51,7 @@ export const Menu = forwardRef<HTMLUListElement, MenuProps>(function Menu(
           <button
             type="button"
             role="menuitem"
+            tabIndex={(selectedKey ?? activeKey) === item.key ? 0 : -1}
             disabled={item.disabled}
             onClick={() => onChange?.(item.key)}
             className={cn(
